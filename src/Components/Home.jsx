@@ -1,28 +1,39 @@
-import React from 'react'
-import Nav from './Nav'
-import { Link } from 'react-router-dom'
+import React, { useContext } from "react";
+import Nav from "./Nav";
+import { Link } from "react-router-dom";
+import { ProductContext } from "../utils/Context";
+import Loading from "./Loading";
 
 const Home = () => {
-  return (
+  const [products] = useContext(ProductContext);
+  console.log(products);
+  return products ? (
     <>
-    <Nav />
-    <div className="h-full w-[85%] flex flex-wrap gap-3 pt-10 pl-10 ">
-        <Link to="/details/1" >
-            
+      <Nav />
+      <div className="h-full w-[85%] flex flex-wrap gap-3 pt-10 pl-10 ">
+        {products.map((p,i) =>
+            <Link to={`/details/${p.id}`}>
             <div className="w-60 h-60 bg-white border-2 border-zinc-200">
-               <img  className="w-full hover:scale-110  h-40 object-fit " src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-                
-                <div className="flex text-balance flex-col px-2">
-                <h1 className="font-bold text-xl  mt-2">Title</h1>
-                <p className="text-xs texr-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, quas?</p>
-                </div>
+              <img
+                className="w-full hover:scale-110  h-40 object-fit "
+                src={p.image}
+              />
+  
+              <div className="flex text-balance flex-col px-2">
+                <h1 className="font-bold truncate   mt-2">{p.title}</h1>
+                <p className="text-xs text-medium truncate">
+                {p.description}
+                </p> 
+              </div>
             </div>
-            </Link>
-           
+          </Link>
+         ) }
+        
+      </div>
+    </>
+  ) : (
+    <Loading />
+  );
+};
 
-        </div>
-        </>
-  )
-}
-
-export default Home
+export default Home;
