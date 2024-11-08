@@ -6,13 +6,13 @@ import Loading from "./Loading";
 
 const Home = () => {
   const [products] = useContext(ProductContext);
-  console.log(products);
+  
   return products ? (
     <>
       <Nav />
       <div className="h-full w-[85%] flex flex-wrap gap-3 pt-10 pl-10 ">
         {products.map((p,i) =>
-            <Link to={`/details/${p.id}`}>
+            <Link key={p.id}  to={`/details/${p.id}`}>
             <div className="w-60 h-60 bg-white border-2 border-zinc-200">
               <img
                 className="w-full hover:scale-110  h-40 object-fit "

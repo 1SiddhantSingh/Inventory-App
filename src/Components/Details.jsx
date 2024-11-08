@@ -9,7 +9,7 @@ const Details = () => {
   const getsingleProduct = async () => {
     try {
       const { data } = await axios.get(`/products/${id}`);
-      console.log(data);
+      
       setSingleProduct(data);
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ const Details = () => {
           <h1 className="text-3xl font-bold ">{singleProduct.title} </h1>
 
           <h2 className="font-semibold text-2xl mt-1 text-red-400">
-            {singleProduct.price}
+            ${singleProduct.price}
           </h2>
           <h2 className="font-small text-zinc-600 ">
             {singleProduct.category}
