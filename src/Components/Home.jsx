@@ -1,17 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useState ,useEffect } from "react";
 import Nav from "./Nav";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ProductContext } from "../utils/Context";
 import Loading from "./Loading";
+import axios from "../utils/Axios";
 
 const Home = () => {
   const [products] = useContext(ProductContext);
-  
+
+  const {search } = useLocation() ;
+  const category = decodeURIComponent(search.split("=")[1]) ;
+
+  const [filterProducts , setFilterProducts] = useState(null) ;
+
+  const getProductsCategory = async () =>{
+    try{
+      const {data } = await axios.get(`/products/category/${category}`);
+      setFilterProducts(data) ;
+      console.log(data) ;
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(() =>{
+    if(!filterProducts) setFilterProducts(products)
+    if(category != "undefined" ) getProductsCategory();
+ 
+  },[category,products])
+
+    console.log(filterProducts)
   return products ? (
     <>
       <Nav />
       <div className="h-full w-[85%] flex flex-wrap gap-3 pt-10 pl-10 ">
-        {products.map((p,i) =>
+        {filterProducts && filterProducts.map((p,i) => 
             <Link key={p.id}  to={`/details/${p.id}`}>
             <div className="w-60 h-60 bg-white border-2 border-zinc-200">
               <img
