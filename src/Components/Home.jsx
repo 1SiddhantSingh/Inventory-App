@@ -13,20 +13,22 @@ const Home = () => {
 
   const [filterProducts , setFilterProducts] = useState(null) ;
 
-  const getProductsCategory = async () =>{
-    try{
-      const {data } = await axios.get(`/products/category/${category}`);
-      setFilterProducts(data) ;
-      console.log(data) ;
-    }
-    catch(error){
-      console.log(error);
-    }
-  }
+  // const getProductsCategory = async () =>{
+  //   try{
+  //     const {data } = await axios.get(`/products/category/${category}`);
+  //     setFilterProducts(data) ;
+  //     console.log(data) ;
+  //   }
+  //   catch(error){
+  //     console.log(error);
+  //   }
+  // }
 
   useEffect(() =>{
-    if(!filterProducts) setFilterProducts(products)
-    if(category != "undefined" ) getProductsCategory();
+    if(!filterProducts || category == "undefined" ) setFilterProducts(products)
+    if(category != "undefined" ) 
+      // getProductsCategory();
+      setFilterProducts(products.filter(p => p.category == category));
  
   },[category,products])
 

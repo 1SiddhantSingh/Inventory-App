@@ -8,7 +8,7 @@ const Nav = () => {
   let distinct_category =
     products && products.reduce((acc, cv) => [...acc, cv.category], []);
   distinct_category = [...new Set(distinct_category)];
-  console.log(distinct_category);
+  // console.log(distinct_category);
 
   const color = () => {
     return `rgba(${(Math.random() * 255).toFixed()},
@@ -16,15 +16,16 @@ const Nav = () => {
       ${(Math.random() * 255).toFixed()},0.4)`;
   };
 
-  console.log(color());
+  // console.log(color());
 
   return (
     <nav className="w-[15%] h-full pt-5  flex flex-col items-center bg-zinc-100 ">
       {/* <Link to='/create'>Add Product</Link> */}
-      <h1 className="   border border-blue-400 rounded border-2 px-1 py-1 mt-5 hover:bg-zinc-100 text-blue-400">
+      
+      <Link to={`/create`} className="   border border-blue-400 rounded border-2 px-1 py-1 mt-5 hover:bg-zinc-100 text-blue-400">
         {" "}
         Add New Products{" "}
-      </h1>
+      </Link>
       <hr className="my-3 w-[50%]" />
       <h1 className="mb-2  font-semibold w-[90%]">Categories Filter </h1>
       <div className="font-thin ">
